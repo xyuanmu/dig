@@ -1,4 +1,4 @@
-@echo off & title Ê¹ÓÃdig²éÑ¯¹È¸èIP
+@echo off & title ä½¿ç”¨digæŸ¥è¯¢è°·æ­ŒIP
 cd %~dp0
 
 :check
