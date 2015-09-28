@@ -1,3 +1,7 @@
+
+到这里下载：http://git.io/vcT59
+
+
 ## 使用方法：
 1. 双击运行 check.bat，如果是IPv6用户运行 check-ip6.bat。
 2. 到 http://public-dns.tk/ 找各个地区DNS，输入模拟的IP，按下回车键。
