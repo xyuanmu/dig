@@ -1,4 +1,4 @@
-@echo off & title Ê¹ÓÃdig²éÑ¯¹È¸èIP - 1Pv6
+@echo off & title ä½¿ç”¨digæŸ¥è¯¢è°·æ­ŒIP - 1Pv6
 cd %~dp0
 
 :check
