@@ -1,4 +1,4 @@
-@echo off & title 使用dig查询谷歌IP - 1Pv6
+@echo off
 cd %~dp0
 
 :check
