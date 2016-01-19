@@ -1,21 +1,21 @@
 @echo off
 
-if exist "%windir%\sysWOW64\" ( set sys=64bit) else set sys=32bit
-echo.Your system is %sys%
+if exist "%windir%\sysWOW64\" (set sys=64bit) else set sys=32bit
+::echo.Your system is %sys%
 
-if exist "%~dp0dig.log" (
+if exist "%~dp0ip.txt" (
 cls
 echo.
-echo.There is exist dig.log, would you like to extract IP from dig.log or get a new one?
+echo.There is exist ip.txt, would you like to dig IP from ip.txt or get a new one?
 echo.
-echo.1. Extract IP from dig.log		2. Get a new dig.log
+echo.1. dig IP from ip.txt		2. Get a new ip.txt
 echo.
 choice /c 12 /n /m "Please make a choice: "
 if errorlevel 2 (
 goto :main
 )
 if errorlevel 1 (
-goto :ExtractIP
+goto :dig
 )
 )
 goto :main
@@ -30,9 +30,6 @@ echo Finished dig!
 goto :ExtractIP
 
 :main
-if exist "%~dp0ip.txt" (
-goto :dig
-) else (
 if exist "%~dp0html.txt" (
 findstr "<h3>Nameserver \d+\.\d+\.\d+\.\d+ Details:</h3>" html.txt > ip-0.txt
 ) else (
@@ -48,7 +45,6 @@ echo %%i>>ip.txt
 )
 del ip-0.txt html.txt>nul 2>nul
 if exist "%~dp0ip.txt" (goto :dig) else echo Something went wrong! & goto :exit
-)
 
 :ExtractIP
 echo.
