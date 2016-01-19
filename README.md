@@ -13,7 +13,6 @@
   1. 在 debug.bat 所在目录新建一个 ip.txt，将自己收集IP地址复制进去，一行一个。
   2. 运行 debug.bat 自动使用dig工具获取返回的IP段。
 3. 生成 ip_range.txt 后将里面的IP段导入扫描工具如 [checkiptools](https://github.com/xyuanmu/checkiptools) 进行扫描和管理。
-4. PS：日志文件 dig.log 和IP段文件 ip_range.txt 默认是重命名不会自动删除，可以手动删除旧文件。
 
 ## dig工具使用方法：
 1. 根据系统选择32位（dig-32bit）或64位（dig-64bit）。
