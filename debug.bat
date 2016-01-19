@@ -21,7 +21,7 @@ goto :dig
 goto :main
 
 :dig
-if exist "%~dp0dig.log" (for /f %%a in ('dir/b dig.*log') do set/a num+=1)
+if exist "%~dp0dig.log" (set num=0 & for /f %%a in ('dir/b dig.*log') do set/a num+=1)
 rename dig.log dig.%num%.log >nul 2>nul
 echo.
 echo Get ip.txt, begin dig IP.
@@ -57,7 +57,7 @@ for /f "delims=. tokens=1-3" %%i in ("%%a") do (
 echo %%i.%%j.%%k.0/24>>ip_range-1.txt
 )
 )
-if exist "%~dp0ip_range.txt" (for /f %%a in ('dir/b ip_range.*txt') do set/a num+=1)
+if exist "%~dp0ip_range.txt" (set num=0 & for /f %%a in ('dir/b ip_range.*txt') do set/a num+=1)
 rename ip_range.txt ip_range.%num%.txt >nul 2>nul
 for /f "delims=" %%i in (ip_range-1.txt) do (
 if not defined %%i set %%i=A & echo %%i>>ip_range.txt
