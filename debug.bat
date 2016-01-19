@@ -56,19 +56,17 @@ echo Extract IP from dig.log, please wait a second...
 del ip_range-0.txt >nul 2>nul
 findstr /b "www\.google\.com\.		\d+\IN	A	\d+\.\d+\.\d+\.\d+" dig.log > ip_range-0.txt
 del ip_range-1.txt >nul 2>nul
-for /f "tokens=5" %%i in (ip_range-0.txt) do (
-echo %%i>>ip_range-1.txt
+for /f "tokens=5" %%a in (ip_range-0.txt) do (
+for /f "delims=. tokens=1-3" %%i in ("%%a") do (
+echo %%i.%%j.%%k.0/24>>ip_range-1.txt
 )
-for /f "delims=. tokens=1-3" %%i in (ip_range-1.txt) do (
-echo %%i.%%j.%%k.0/24>>ip_range-2.txt
 )
-del ip_range-0.txt ip_range-1.txt >nul 2>nul
 if exist "%~dp0ip_range.txt" (for /f %%a in ('dir/b ip_range.*txt') do set/a num+=1)
 rename ip_range.txt ip_range.%num%.txt >nul 2>nul
-for /f "delims=" %%i in (ip_range-2.txt) do (
+for /f "delims=" %%i in (ip_range-1.txt) do (
 if not defined %%i set %%i=A & echo %%i>>ip_range.txt
 )
-del ip_range-2.txt >nul 2>nul
+del ip_range-0.txt ip_range-1.txt >nul 2>nul
 goto :exit
 
 :seturl
