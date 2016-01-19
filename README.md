@@ -12,7 +12,15 @@
 2. 方法二：
   1. 在 debug.bat 所在目录新建一个 ip.txt，将自己收集IP地址复制进去，一行一个。
   2. 运行 debug.bat 自动使用dig工具获取返回的IP段。
-3. 生成 ip_range.txt 后将里面的IP段导入扫描工具如 [checkiptools](https://github.com/xyuanmu/checkiptools) 进行扫描和管理。
+3. 方法三：
+  1. 在 debug.bat 所在目录新建一个 url.txt，复制网址进去，一行一个。
+  2. 运行 debug.bat 自动下载所有网页并使用dig工具获取返回的IP段。
+4. 生成 ip_range.txt 后将里面的IP段导入扫描工具如 [checkiptools](https://github.com/xyuanmu/checkiptools) 进行扫描和管理。
+
+## 注意事项：
+* 目前支持的地址只有 http://www.bestdns.org/ ，而且首页格式不同无法获取。
+* 为方便以后查看，日志文件 dig.log 默认重命名，有洁癖的可以手动删除。
+* 每次结束时会自行整理 ip_range.txt 去掉之前出现过的IP段，如果只想获取本次结果可以手动删除后在运行 debug.bat。
 
 ## dig工具使用方法：
 1. 根据系统选择32位（dig-32bit）或64位（dig-64bit）。

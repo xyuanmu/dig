@@ -3,6 +3,18 @@ setlocal EnableDelayedExpansion
 if exist "%windir%\sysWOW64\" (set sys=64bit) else set sys=32bit
 ::echo.Your system is %sys%
 
+if exist "%~dp0url.txt" (
+del html.txt >nul 2>nul
+for /f "delims=" %%i in (url.txt) do (
+%~dp0tool/wget.exe %%i -O html-0.txt
+for /f "delims=" %%i in (html-0.txt) do echo.%%i>> html.txt
+del html-0.txt>nul 2>nul
+)
+if exist "%~dp0url.txt" (set num=0 & for /f %%a in ('dir/b url.*txt') do set/a num+=1)
+rename url.txt url.%num%.txt >nul 2>nul
+goto :getip
+)
+
 if exist "%~dp0ip.txt" (
 cls
 echo.
@@ -21,8 +33,8 @@ goto :dig
 goto :getip
 
 :dig
-::if exist "%~dp0dig.log" (set num=0 & for /f %%a in ('dir/b dig.*log') do set/a num+=1)
-::rename dig.log dig.%num%.log >nul 2>nul
+if exist "%~dp0dig.log" (set num=0 & for /f %%a in ('dir/b dig.*log') do set/a num+=1)
+rename dig.log dig.%num%.log >nul 2>nul
 echo.
 echo Get ip.txt, begin dig IP.
 for /f "delims=" %%i in (ip.txt) do (
