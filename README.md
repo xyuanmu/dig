@@ -12,14 +12,14 @@
 2. 方法二：
   1. 在 debug.bat 所在目录新建一个 ip.txt，将自己收集IP地址复制进去，一行一个。
   2. 运行 debug.bat 自动使用dig工具获取返回的IP段。
-3. 生成 ip_range.txt 后将里面的IP段导入扫描工具如 [checkgoogleip](https://github.com/moonshawdo/checkgoogleip/) 进行扫描。
-4. PS：日志文件 dig.log 和IP段文件 ip_range.txt 默认是重命名不会自动删除，可以手动删除。
+3. 生成 ip_range.txt 后将里面的IP段导入扫描工具如 [checkiptools](https://github.com/xyuanmu/checkiptools) 进行扫描和管理。
+4. PS：日志文件 dig.log 和IP段文件 ip_range.txt 默认是重命名不会自动删除，可以手动删除旧文件。
 
 ## dig工具使用方法：
 1. 根据系统选择32位（dig-32bit）或64位（dig-64bit）。
 1. 双击运行 check.bat，如果是IPv6用户运行 check-ip6.bat。
 2. 到DNS网站找各个地区DNS，输入模拟的IP，按下回车键。
-3. 获取 ANSWER SECTION 下方的IP，如果不是谷歌官方IP段，则是GGC，丢进 [checkgoogleip](https://github.com/moonshawdo/checkgoogleip/) 或 GoGo Tester 里扫描。
+3. 获取 ANSWER SECTION 下方的IP，如果不是谷歌官方IP段，则是GGC，丢进 [checkiptools](https://github.com/xyuanmu/checkiptools) 或 GoGo Tester 里扫描。
 
 ## 谷歌官方IP段：
 ```
