@@ -10,8 +10,6 @@ for /f "delims=" %%i in (url.txt) do (
 for /f "delims=" %%i in (html-0.txt) do echo.%%i>> html.txt
 del html-0.txt>nul 2>nul
 )
-if exist "%~dp0url.txt" (set num=0 & for /f %%a in ('dir/b url.*txt') do set/a num+=1)
-rename url.txt url.%num%.txt >nul 2>nul
 goto :getip
 )
 
@@ -47,6 +45,8 @@ echo dig finished^^!
 goto :ExtractIP
 
 :getip
+if exist "%~dp0url.txt" (set num=0 & for /f %%a in ('dir/b url.*txt') do set/a num+=1)
+rename url.txt url.%num%.txt >nul 2>nul
 if exist "%~dp0html.txt" (
 findstr "<h3>Nameserver \d+\.\d+\.\d+\.\d+ Details:</h3>" html.txt > ip-0.txt
 ) else (
