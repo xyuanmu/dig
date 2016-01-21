@@ -13,6 +13,16 @@ del html-0.txt>nul 2>nul
 goto :getip
 )
 
+if exist "%~dp0url2.txt" (
+del html.txt >nul 2>nul
+for /f "delims=" %%i in (url2.txt) do (
+%~dp0tool/wget.exe %%i -O html-0.txt
+for /f "delims=" %%i in (html-0.txt) do echo.%%i>> html.txt
+del html-0.txt>nul 2>nul
+)
+goto :getip2
+)
+
 if exist "%~dp0ip.txt" (
 cls
 echo.
@@ -48,11 +58,11 @@ goto :ExtractIP
 if exist "%~dp0url.txt" (set num=0 & for /f %%a in ('dir/b url.*txt') do set/a num+=1)
 rename url.txt url.%num%.txt >nul 2>nul
 if exist "%~dp0html.txt" (
-findstr "<h3>Nameserver \d+\.\d+\.\d+\.\d+ Details:</h3>" html.txt > ip-0.txt
+findstr "<h3>Nameserver Details:</h3>" html.txt > ip-0.txt
 ) else (
 if defined url (
 %~dp0tool/wget.exe %url% -O html.txt
-findstr "<h3>Nameserver \d+\.\d+\.\d+\.\d+ Details:</h3>" html.txt > ip-0.txt
+findstr "<h3>Nameserver Details:</h3>" html.txt > ip-0.txt
 ) else goto :seturl
 )
 
@@ -61,12 +71,31 @@ for /f "tokens=2" %%i in (ip-0.txt) do echo %%i>> ip.txt
 del ip-0.txt html.txt>nul 2>nul
 if exist "%~dp0ip.txt" (goto :dig) else echo Something went wrong^^! & goto :exit
 
+:getip2
+if exist "%~dp0url2.txt" (set num=0 & for /f %%a in ('dir/b url2.*txt') do set/a num+=1)
+rename url2.txt url2.%num%.txt >nul 2>nul
+if exist "%~dp0html.txt" (
+findstr "https://apps.db.ripe.net/search/query.html?searchtext=" html.txt >> ip-0.txt
+) else (
+if defined url (
+%~dp0tool/wget.exe %url% -O html.txt
+findstr "https://apps.db.ripe.net/search/query.html?searchtext=" html.txt >> ip-0.txt
+) else goto :seturl
+)
+
+del ip.txt>nul 2>nul
+for /f "tokens=3 delims==" %%i in (ip-0.txt) do (
+for /f  tokens^=1^ delims^=^" %%i in ("%%i") do echo %%i>> ip.txt
+)
+del ip-0.txt html.txt>nul 2>nul
+if exist "%~dp0ip.txt" (goto :dig) else echo Something went wrong^^! & goto :exit
+
 :ExtractIP
 echo.
 echo Extract IP from dig.log, please wait a second...
 del ip_range-0.txt >nul 2>nul
-for /f "tokens=5" %%a in ('findstr /b "www\.google\.com\.		\d+\IN	A	\d+\.\d+\.\d+\.\d+" dig.log') do (
-for /f "delims=. tokens=1-3" %%b in ("%%a") do (
+for /f "tokens=5" %%a in ('findstr /b "www\.google\.com\." dig.log') do (
+for /f "tokens=1-3 delims=." %%b in ("%%a") do (
 echo %%b.%%c.%%d.0/24>> ip_range-0.txt
 )
 )
@@ -84,8 +113,12 @@ goto :exit
 
 :seturl
 cls
-set /p url="please input a url, support bestdns.org only: "
+set /p url="please input a url: "
+echo %url%|findstr "bestdns" >nul
+if %errorlevel% equ 0 (
 goto :getip
+) else goto :getip2
+
 
 :exit
 pause
