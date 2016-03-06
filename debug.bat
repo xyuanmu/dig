@@ -47,9 +47,8 @@ echo.
 echo Get ip.txt, begin dig IP.
 for /f "delims=" %%i in (ip.txt) do (
 set /a n+=1
-set !n!=%%i
 echo dig !n! ip: %%i
-%~dp0/dig-%sys%/dig +subnet=%%i @ns1.google.com www.google.com>> dig.log 2>> nul
+"%~dp0/dig-%sys%/dig" +subnet=%%i @ns1.google.com www.google.com>> dig.log 2>> nul
 )
 echo dig finished^^!
 goto :ExtractIP
