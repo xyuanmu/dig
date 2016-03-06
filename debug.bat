@@ -6,7 +6,7 @@ if exist "%windir%\sysWOW64\" (set sys=64bit) else set sys=32bit
 if exist "%~dp0url.txt" (
 del html.txt >nul 2>nul
 for /f "delims=" %%i in (url.txt) do (
-%~dp0tool/wget.exe %%i -O html-0.txt
+"%~dp0tool/wget.exe" %%i -O html-0.txt
 for /f "delims=" %%i in (html-0.txt) do echo.%%i>> html.txt
 del html-0.txt>nul 2>nul
 )
@@ -16,7 +16,7 @@ goto :getip
 if exist "%~dp0url2.txt" (
 del html.txt >nul 2>nul
 for /f "delims=" %%i in (url2.txt) do (
-%~dp0tool/wget.exe %%i -O html-0.txt
+"%~dp0tool/wget.exe" %%i -O html-0.txt
 for /f "delims=" %%i in (html-0.txt) do echo.%%i>> html.txt
 del html-0.txt>nul 2>nul
 )
@@ -60,7 +60,7 @@ if exist "%~dp0html.txt" (
 findstr "<h3>Nameserver Details:</h3>" html.txt > ip-0.txt
 ) else (
 if defined url (
-%~dp0tool/wget.exe %url% -O html.txt
+"%~dp0tool/wget.exe" %url% -O html.txt
 findstr "<h3>Nameserver Details:</h3>" html.txt > ip-0.txt
 ) else goto :seturl
 )
@@ -77,7 +77,7 @@ if exist "%~dp0html.txt" (
 findstr "https://apps.db.ripe.net/search/query.html?searchtext=" html.txt >> ip-0.txt
 ) else (
 if defined url (
-%~dp0tool/wget.exe %url% -O html.txt
+"%~dp0tool/wget.exe" %url% -O html.txt
 findstr "https://apps.db.ripe.net/search/query.html?searchtext=" html.txt >> ip-0.txt
 ) else goto :seturl
 )
