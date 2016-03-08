@@ -1,6 +1,6 @@
 ## 使用方法：
 1. 双击运行 check.bat，如果是IPv6用户运行 check-ip6.bat。
-2. 到 http://public-dns.tk/ 找各个地区DNS，输入模拟的IP，按下回车键。
+2. 到 [Best DNS](http://www.bestdns.org/) 或者 [Ungefiltert surfen](http://www.ungefiltert-surfen.de/) 找各个地区DNS，输入模拟的IP，按下回车键。
 3. 获取 ANSWER SECTION 下方的IP，如果不是谷歌官方IP段，则是GGC，丢进 checkgoogleip 或 GoGo Tester 里扫描。
 
 ## 谷歌官方IP段：
