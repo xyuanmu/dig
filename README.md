@@ -1,3 +1,4 @@
+**特别声明：[checkiptools](https://github.com/xyuanmu/checkiptools) 已经集成dig功能并且支持多线程，建议用该工具进行解析！**
 
 ## 软件说明
 * 一个简单的使用dig扩展功能获取谷歌IP的工具
